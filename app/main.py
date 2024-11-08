@@ -7,7 +7,7 @@ def get_clean_data():
   
     data = []
     # Open and read the CSV file
-    with open("/Users/aayushi/ML Project/data/data.csv", mode='r') as file:
+    with open("/Users/abhinavmittal/Desktop/ML/data/data.csv", mode='r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
             # Drop unwanted columns and map diagnosis
@@ -33,7 +33,7 @@ def find_mean_value(data, key):
 
 
 def add_sidebar():
-    st.sidebar.header("Cell Nuclie Measurement")
+    st.sidebar.header("injury data ")
 
     data = get_clean_data()
 
@@ -178,8 +178,8 @@ def get_radar_chart(input_data):
 
 
 def add_predictions(input_data):
-    model = pickle.load(open("/Users/aayushi/ML Project/model/model.pkl", "rb"))
-    scaler = pickle.load(open("/Users/aayushi/ML Project/model/scaler.pkl", "rb"))
+    model = pickle.load(open("/Users/abhinavmittal/Desktop/ML/model/model.pkl", "rb"))
+    scaler = pickle.load(open("/Users/abhinavmittal/Desktop/ML/model/scaler.pkl", "rb"))
     
     # Convert input data to a list of floats
     input_list = [float(value) for value in input_data.values()]
@@ -215,7 +215,7 @@ def add_predictions(input_data):
 
 def main():
     st.set_page_config(
-        page_title="Breast Cancer Predictor",
+        page_title="injury  Predictor",
         page_icon = "female-doctor:",
         layout="wide",
         initial_sidebar_state="expanded"
@@ -226,7 +226,7 @@ def main():
 
 
     with st.container():
-        st.title("Breast Cancer Predictor")
+        st.title("injury Predictor")
         st.write("Please connect this app to your cytology lab to help diagnose breast cancer form your tissue sample. This app predicts using a machine learning model whether a breast mass is benign or malignant based on the measurements it receives from your cytosis lab. You can also update the measurements by hand using the sliders in the sidebar. ")
 
     col1, col2 = st.columns([4,1])
@@ -237,14 +237,6 @@ def main():
 
     with col2:
         add_predictions(input_data)
-
-
-  
- 
-
-
-
-
 
 if __name__ == "__main__":
     main()
