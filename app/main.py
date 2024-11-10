@@ -7,15 +7,15 @@ def get_clean_data():
   
     data = []
     # Open and read the CSV file
-    with open("/Users/abhinavmittal/Desktop/ML/data/data.csv", mode='r') as file:
+    with open("E:/ml-p/Sports-Injury-Analysis/final_data.csv", mode='r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
             # Drop unwanted columns and map diagnosis
-            if 'Unnamed: 32' in row:
-                del row['Unnamed: 32']
-            if 'id' in row:
-                del row['id']
-            row['diagnosis'] = 1 if row['diagnosis'] == 'M' else 0
+            # if 'Unnamed: 32' in row:
+            #     del row['Unnamed: 32']
+            # if 'id' in row:
+            #     del row['id']
+            # row['diagnosis'] = 1 if row['diagnosis'] == 'M' else 0
             data.append(row)
 
     return data
@@ -39,36 +39,40 @@ def add_sidebar():
 
   
     slider_labels = [
-        ("Radius (mean)", "radius_mean"),
-        ("Texture (mean)", "texture_mean"),
-        ("Perimeter (mean)", "perimeter_mean"),
-        ("Area (mean)", "area_mean"),
-        ("Smoothness (mean)", "smoothness_mean"),
-        ("Compactness (mean)", "compactness_mean"),
-        ("Concavity (mean)", "concavity_mean"),
-        ("Concave points (mean)", "concave points_mean"),
-        ("Symmetry (mean)", "symmetry_mean"),
-        ("Fractal dimension (mean)", "fractal_dimension_mean"),
-        ("Radius (se)", "radius_se"),
-        ("Texture (se)", "texture_se"),
-        ("Perimeter (se)", "perimeter_se"),
-        ("Area (se)", "area_se"),
-        ("Smoothness (se)", "smoothness_se"),
-        ("Compactness (se)", "compactness_se"),
-        ("Concavity (se)", "concavity_se"),
-        ("Concave points (se)", "concave points_se"),
-        ("Symmetry (se)", "symmetry_se"),
-        ("Fractal dimension (se)", "fractal_dimension_se"),
-        ("Radius (worst)", "radius_worst"),
-        ("Texture (worst)", "texture_worst"),
-        ("Perimeter (worst)", "perimeter_worst"),
-        ("Area (worst)", "area_worst"),
-        ("Smoothness (worst)", "smoothness_worst"),
-        ("Compactness (worst)", "compactness_worst"),
-        ("Concavity (worst)", "concavity_worst"),
-        ("Concave points (worst)", "concave points_worst"),
-        ("Symmetry (worst)", "symmetry_worst"),
-        ("Fractal dimension (worst)", "fractal_dimension_worst"),
+           ("Game workload (mean)","game_workload"),
+           ("Groin squeeze (mean)","groin_squeeze"),
+           ("Hip mobility (mean)","hip_mobility"),
+           ("Rest period (mean)","rest_period")
+        # ("Radius (mean)", "radius_mean"),
+        # ("Texture (mean)", "texture_mean"),
+        # ("Perimeter (mean)", "perimeter_mean"),
+        # ("Area (mean)", "area_mean"),
+        # ("Smoothness (mean)", "smoothness_mean"),
+        # ("Compactness (mean)", "compactness_mean"),
+        # ("Concavity (mean)", "concavity_mean"),
+        # ("Concave points (mean)", "concave points_mean"),
+        # ("Symmetry (mean)", "symmetry_mean"),
+        # ("Fractal dimension (mean)", "fractal_dimension_mean"),
+        # ("Radius (se)", "radius_se"),
+        # ("Texture (se)", "texture_se"),
+        # ("Perimeter (se)", "perimeter_se"),
+        # ("Area (se)", "area_se"),
+        # ("Smoothness (se)", "smoothness_se"),
+        # ("Compactness (se)", "compactness_se"),
+        # ("Concavity (se)", "concavity_se"),
+        # ("Concave points (se)", "concave points_se"),
+        # ("Symmetry (se)", "symmetry_se"),
+        # ("Fractal dimension (se)", "fractal_dimension_se"),
+        # ("Radius (worst)", "radius_worst"),
+        # ("Texture (worst)", "texture_worst"),
+        # ("Perimeter (worst)", "perimeter_worst"),
+        # ("Area (worst)", "area_worst"),
+        # ("Smoothness (worst)", "smoothness_worst"),
+        # ("Compactness (worst)", "compactness_worst"),
+        # ("Concavity (worst)", "concavity_worst"),
+        # ("Concave points (worst)", "concave points_worst"),
+        # ("Symmetry (worst)", "symmetry_worst"),
+        # ("Fractal dimension (worst)", "fractal_dimension_worst"),
     ]
 
     input_dict = {}
@@ -125,40 +129,32 @@ def get_scaled_values(input_dict):
 def get_radar_chart(input_data):
     input_data = get_scaled_values(input_data)
     
-    categories = ['Radius', 'Texture', 'Perimeter', 'Area', 
-                    'Smoothness', 'Compactness', 
-                    'Concavity', 'Concave Points',
-                    'Symmetry', 'Fractal Dimension']
+    categories = ['Game Workload', 'Groin Squeeze', 'Hip Mobility', 'Rest Period']
 
     fig = go.Figure()
 
     fig.add_trace(go.Scatterpolar(
             r=[
-            input_data['radius_mean'], input_data['texture_mean'], input_data['perimeter_mean'],
-            input_data['area_mean'], input_data['smoothness_mean'], input_data['compactness_mean'],
-            input_data['concavity_mean'], input_data['concave points_mean'], input_data['symmetry_mean'],
-            input_data['fractal_dimension_mean']
+            input_data['game_workload'], input_data['groin_squeeze'], input_data['hip_mobility'],
+            input_data['rest_period']
             ],
             theta=categories,
             fill='toself',
             name='Mean Value'
     ))
     fig.add_trace(go.Scatterpolar(
-            r=[
-            input_data['radius_se'], input_data['texture_se'], input_data['perimeter_se'], input_data['area_se'],
-            input_data['smoothness_se'], input_data['compactness_se'], input_data['concavity_se'],
-            input_data['concave points_se'], input_data['symmetry_se'],input_data['fractal_dimension_se']
+             r=[
+            input_data['game_workload'], input_data['groin_squeeze'], input_data['hip_mobility'],
+            input_data['rest_period']
             ],
             theta=categories,
             fill='toself',
             name='Standard Error'
     ))
     fig.add_trace(go.Scatterpolar(
-            r=[
-            input_data['radius_worst'], input_data['texture_worst'], input_data['perimeter_worst'],
-            input_data['area_worst'], input_data['smoothness_worst'], input_data['compactness_worst'],
-            input_data['concavity_worst'], input_data['concave points_worst'], input_data['symmetry_worst'],
-            input_data['fractal_dimension_worst']
+             r=[
+            input_data['game_workload'], input_data['groin_squeeze'], input_data['hip_mobility'],
+            input_data['rest_period']
             ],
             theta=categories,
             fill='toself',
@@ -178,8 +174,8 @@ def get_radar_chart(input_data):
 
 
 def add_predictions(input_data):
-    model = pickle.load(open("/Users/abhinavmittal/Desktop/ML/model/model.pkl", "rb"))
-    scaler = pickle.load(open("/Users/abhinavmittal/Desktop/ML/model/scaler.pkl", "rb"))
+    model = pickle.load(open("E:/ml-p/Sports-Injury-Analysis/Injury-Predictor-Analysis/model/model.pkl", "rb"))
+    #scaler = pickle.load(open("E:/ml-p/Sports-Injury-Analysis/Injury-Predictor-Analysis/model/scaler.pkl", "rb"))
     
     # Convert input data to a list of floats
     input_list = [float(value) for value in input_data.values()]
@@ -188,20 +184,20 @@ def add_predictions(input_data):
     input_array = [input_list]
 
     # Scale the input array
-    input_array_scaled = scaler.transform(input_array)
+    #input_array_scaled = scaler.transform(input_array)
 
     # Predict using the model
-    prediction = model.predict(input_array_scaled)
-    prediction_proba = model.predict_proba(input_array_scaled)
+    prediction = model.predict(input_array)
+    prediction_proba = model.predict_proba(input_array)
 
     # Display the results
     st.subheader("Cell cluster prediction")
     st.write("The cell cluster is:")
     
     if prediction[0] == 0:
-        st.write("<span class='diagnosis benign'>Benign</span>", unsafe_allow_html=True)
+        st.write("<span class='diagnosis benign'>injury will  not occur</span>", unsafe_allow_html=True)
     else:
-        st.write("<span class='diagnosis malicious'>Malicious</span>", unsafe_allow_html=True)
+        st.write("<span class='diagnosis malicious'>injury will occur</span>", unsafe_allow_html=True)
     
     st.write("Probability of being benign: ", prediction_proba[0][0])
     st.write("Probability of being malicious: ", prediction_proba[0][1])
