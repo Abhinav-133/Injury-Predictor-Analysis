@@ -8,7 +8,7 @@ import pandas as pd
 def get_clean_data():
     data = []
     try:
-        with open("/Users/abhinavmittal/Desktop/Injury-Predictor-Analysis/final_data.csv", mode='r') as file:
+        with open("./data/final_data.csv", mode='r') as file:
             csv_reader = csv.DictReader(file)
             for row in csv_reader:
                 data.append(row)
@@ -147,7 +147,7 @@ def get_radar_chart(input_data):
 # Prediction display based on user input
 def add_predictions(input_data):
     try:
-        model = pickle.load(open("/Users/abhinavmittal/Desktop/Injury-Predictor-Analysis/model.pkl", "rb"))
+        model = pickle.load(open("./model.pkl", "rb"))
         
         input_list = [float(value) for value in input_data.values()]
         input_array = [input_list]
