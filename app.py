@@ -18,15 +18,14 @@ def get_clean_data():
         st.error(f"An error occurred while loading the data: {e}")
     return data
 
-# Find maximum value for sliders
 def find_max_value(data, key):
     values = [float(row[key]) for row in data if key in row]
-    return max(values) if values else 1
+    return float(max(values)) if values else 1.0
 
-# Calculate mean value for sliders
 def find_mean_value(data, key):
     values = [float(row[key]) for row in data if key in row]
-    return sum(values) / len(values) if values else 0
+    return float(sum(values) / len(values)) if values else 0.0
+
 
 # Function to transform value to numeric
 def to_numeric(value):
@@ -37,6 +36,50 @@ def to_numeric(value):
 
 # Input parameters with number fields and improved layout
 def add_input_fields():
+    st.subheader("Input Parameters")
+    data = get_clean_data()
+    if not data:
+        st.error("No data available to generate input fields. Check your data file.")
+        st.stop()
+
+    st.write("Adjust the parameters below to predict the likelihood of injury:")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        game_workload = st.number_input(
+            "Game Workload (mean)",
+            min_value=0.0,
+            max_value=find_max_value(data, "game_workload"),
+            value=find_mean_value(data, "game_workload"),
+        )
+        groin_squeeze = st.number_input(
+            "Groin Squeeze (mean)",
+            min_value=0.0,
+            max_value=find_max_value(data, "groin_squeeze"),
+            value=find_mean_value(data, "groin_squeeze"),
+        )
+    with col2:
+        hip_mobility = st.number_input(
+            "Hip Mobility (mean)",
+            min_value=0.0,
+            max_value=find_max_value(data, "hip_mobility"),
+            value=find_mean_value(data, "hip_mobility"),
+        )
+        rest_period = st.number_input(
+            "Rest Period (mean)",
+            min_value=0.0,
+            max_value=find_max_value(data, "rest_period"),
+            value=find_mean_value(data, "rest_period"),
+        )
+
+    input_dict = {
+        "game_workload": game_workload,
+        "groin_squeeze": groin_squeeze,
+        "hip_mobility": hip_mobility,
+        "rest_period": rest_period,
+    }
+    return input_dict
+
     st.subheader("Input Parameters")
     data = get_clean_data()
     st.write("Adjust the parameters below to predict the likelihood of injury:")
