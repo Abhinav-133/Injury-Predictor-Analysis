@@ -158,7 +158,7 @@ def add_predictions(input_data):
         st.subheader("Injury Prediction Results")
         st.write("Based on your input parameters, here are the results:")
 
-        if prediction[0] == 0:
+        if prediction_proba[0][0] >= 0.5:
             st.error("**High risk: Injury is likely**")
         else:
             st.success("**Low risk: Injury is unlikely**")
