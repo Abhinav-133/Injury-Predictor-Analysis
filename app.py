@@ -159,19 +159,14 @@ def add_predictions(input_data):
         st.write("Based on your input parameters, here are the results:")
 
         if prediction_proba[0][0] < 0.5:
-            st.error("**High risk: Injury is likely**")
-        else:
             st.success("**Low risk: Injury is unlikely**")
-
-        if prediction[0] == 0.0:
-            st.error("**High risk: Injury is likely**")
         else:
-            st.success("**Low risk: Injury is unlikely**")
+            st.error("**High risk: Injury is likely**")
             
 
         st.write("### Probability Scores")
-        st.write(f"- Probability of no injury: **{prediction_proba[0][0]:.2f}**")
-        st.write(f"- Probability of injury: **{prediction_proba[0][1]:.2f}**")
+        st.write(f"- Probability of injury: **{prediction_proba[0][0]:.2f}**")
+        st.write(f"- Probability of no injury: **{prediction_proba[0][1]:.2f}**")
 
     except FileNotFoundError:
         st.error("Model file not found. Please ensure the model file is in the correct path.")
