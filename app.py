@@ -164,10 +164,6 @@ def add_predictions(input_data):
             st.error("**High risk: Injury is likely**")
             
 
-        st.write("### Probability Scores")
-        st.write(f"- Probability of injury: **{prediction_proba[0][0]:.2f}**")
-        st.write(f"- Probability of no injury: **{prediction_proba[0][1]:.2f}**")
-
     except FileNotFoundError:
         st.error("Model file not found. Please ensure the model file is in the correct path.")
     except Exception as e:
